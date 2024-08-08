@@ -37,6 +37,9 @@ public class Descuento{
         Scanner scan = new Scanner(System.in).useLocale(Locale.US);
 		System.out.println("Ingrese el precio del producto:");
 		double precio = scan.nextDouble();
+        if(precio<=0){
+            System.out.println("El precio debe ser mayor a 0");
+        }
 
         /*
          * El descuento se calcula multiplicando el precio por 0.20
