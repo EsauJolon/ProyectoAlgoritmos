@@ -39,8 +39,8 @@ public class Descuento{
 		double precio = scan.nextDouble();
         if(precio<=0){
             System.out.println("El precio debe ser mayor a 0");
-        }
-
+        }else{
+            
         /*
          * El descuento se calcula multiplicando el precio por 0.20
         */
@@ -56,6 +56,8 @@ public class Descuento{
         
 		System.out.println("El precio a pagar por el articulo es de: "+ precioF);
         System.out.println("Su descuento es de: "+ descuento);	
+
+        }
 
         
     }
