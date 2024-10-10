@@ -31,6 +31,10 @@ public class Menu extends javax.swing.JFrame {
     private void initComponents() {
 
         jButton1 = new javax.swing.JButton();
+        btnCategorias = new javax.swing.JToggleButton();
+        btnSubCategorias = new javax.swing.JButton();
+        btnEspecificaciones = new javax.swing.JButton();
+        btnProductos = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -42,21 +46,59 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
+        btnCategorias.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interface/resources/imgs/categoria.png"))); // NOI18N
+        btnCategorias.setText("CATEGORIAS");
+        btnCategorias.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCategoriasActionPerformed(evt);
+            }
+        });
+
+        btnSubCategorias.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interface/resources/imgs/clasificar-por-categorias.png"))); // NOI18N
+        btnSubCategorias.setText("SUB CATEGORIAS");
+
+        btnEspecificaciones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interface/resources/imgs/especificaciones.png"))); // NOI18N
+        btnEspecificaciones.setText("ESPECIFICACIONES");
+
+        btnProductos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interface/resources/imgs/estanteria.png"))); // NOI18N
+        btnProductos.setText("PRODUCTOS");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(93, 93, 93)
-                .addComponent(jButton1)
-                .addContainerGap(545, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnEspecificaciones)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnProductos))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addGap(38, 38, 38)
+                        .addComponent(btnCategorias)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnSubCategorias)))
+                .addContainerGap(117, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(52, 52, 52)
-                .addComponent(jButton1)
-                .addContainerGap(344, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton1)
+                            .addComponent(btnCategorias, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnEspecificaciones)
+                            .addComponent(btnProductos))
+                        .addContainerGap(250, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnSubCategorias)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         pack();
@@ -67,6 +109,12 @@ public class Menu extends javax.swing.JFrame {
         user.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnCategoriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCategoriasActionPerformed
+        Categorias categoria = new Categorias();
+        categoria.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnCategoriasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -86,6 +134,10 @@ public class Menu extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JToggleButton btnCategorias;
+    private javax.swing.JButton btnEspecificaciones;
+    private javax.swing.JToggleButton btnProductos;
+    private javax.swing.JButton btnSubCategorias;
     private javax.swing.JButton jButton1;
     // End of variables declaration//GEN-END:variables
 }

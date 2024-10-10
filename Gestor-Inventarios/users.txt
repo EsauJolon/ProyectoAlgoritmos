@@ -1,2 +1,1 @@
 1|esau|123|admin|
-2|esa|4566|cajero|
