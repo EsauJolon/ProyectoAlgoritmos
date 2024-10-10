@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import javax.swing.JOptionPane;
+
 /**
  *
  * @author esauj
@@ -108,55 +109,53 @@ public class Login extends javax.swing.JFrame {
 
     private void btnEntrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEntrarMouseClicked
 
-         // Obtener los datos ingresados por el usuario
-    String usuarioIngresado = txtUsuario.getText();
-    String contraseñaIngresada = new String(Password.getPassword());
+        // Obtener los datos ingresados por el usuario
+        String usuarioIngresado = txtUsuario.getText();
+        String contraseñaIngresada = new String(Password.getPassword());
 
-    // Ruta del archivo 'users.txt'
-    File archivoUsuarios = new File("users.txt");
+        // Ruta del archivo 'users.txt'
+        File archivoUsuarios = new File("users.txt");
 
-    // Bandera para saber si se encontró un usuario válido
-    boolean usuarioValido = false;
+        // Bandera para saber si se encontró un usuario válido
+        boolean usuarioValido = false;
 
-    try {
-        // Lectura del archivo
-        FileReader fr = new FileReader(archivoUsuarios);
-        BufferedReader br = new BufferedReader(fr);
-        String linea;
+        try {
+            // Lectura del archivo
+            FileReader fr = new FileReader(archivoUsuarios);
+            BufferedReader br = new BufferedReader(fr);
+            String linea;
 
-        // Leer cada línea del archivo
-        while ((linea = br.readLine()) != null) {
-            // Dividir la línea en partes (ID|usuario|contraseña)
-            String[] partes = linea.split("\\|");
+            // Leer cada línea del archivo
+            while ((linea = br.readLine()) != null) {
+                // Dividir la línea en partes (ID|usuario|contraseña)
+                String[] partes = linea.split("\\|");
 
-            // Verificar si el usuario y contraseña ingresados coinciden
-            if (partes[1].equals(usuarioIngresado) && partes[2].equals(contraseñaIngresada)) {
-                // Usuario y contraseña correctos
-                usuarioValido = true;
-                break;
+                // Verificar si el usuario y contraseña ingresados coinciden
+                if (partes[1].equals(usuarioIngresado) && partes[2].equals(contraseñaIngresada)) {
+                    // Usuario y contraseña correctos
+                    usuarioValido = true;
+                    break;
+                }
             }
+
+            br.close(); // Cerrar el archivo
+
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(this, "Error al leer el archivo de usuarios.");
+            e.printStackTrace();
         }
 
-        br.close(); // Cerrar el archivo
+        // Si el usuario es válido, abrir el menú
+        if (usuarioValido) {
+            Menu mn = new Menu();
+            mn.setVisible(true);
+            dispose();
+        } else {
+            // Si no se encontró el usuario, mostrar mensaje de error
+            JOptionPane.showMessageDialog(this, "Usuario o Contraseña Incorrecto");
+        }
 
-    } catch (IOException e) {
-        JOptionPane.showMessageDialog(this, "Error al leer el archivo de usuarios.");
-        e.printStackTrace();
-    }
 
-    // Si el usuario es válido, abrir el menú
-    if (usuarioValido) {
-        Menu mn = new Menu();
-        mn.setVisible(true);
-        dispose();
-    } else {
-        // Si no se encontró el usuario, mostrar mensaje de error
-        JOptionPane.showMessageDialog(this, "Usuario o Contraseña Incorrecto");
-    }
-
-        
-        
-        
     }//GEN-LAST:event_btnEntrarMouseClicked
 
     /**
@@ -185,7 +184,7 @@ public class Login extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        crearArchivosNecesarios();
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -193,6 +192,33 @@ public class Login extends javax.swing.JFrame {
             }
         });
     }
+
+    private static void crearArchivosNecesarios() {
+        String[] filePaths = {
+            "users.txt",
+            "categorias.txt",
+            "subCategorias.txt"
+        };
+
+        for (String path : filePaths) {
+            File file = new File(path);
+            if (!file.exists()) {
+                try {
+                    if (file.createNewFile()) {
+                        System.out.println("Archivo creado: " + file.getName());
+                    } else {
+                        System.out.println("No se pudo crear el archivo: " + file.getName());
+                    }
+                } catch (IOException e) {
+                    System.out.println("Ocurrió un error al crear el archivo: " + file.getName());
+                    e.printStackTrace();
+                }
+            } else {
+                System.out.println("El archivo ya existe: " + file.getName());
+            }
+        }
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPasswordField Password;
