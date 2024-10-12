@@ -197,7 +197,8 @@ public class Login extends javax.swing.JFrame {
         String[] filePaths = {
             "users.txt",
             "categorias.txt",
-            "subCategorias.txt"
+            "subCategorias.txt",
+                "Roles.txt"
         };
 
         for (String path : filePaths) {

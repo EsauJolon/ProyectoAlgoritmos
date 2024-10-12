@@ -56,6 +56,11 @@ public class Menu extends javax.swing.JFrame {
 
         btnSubCategorias.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interface/resources/imgs/clasificar-por-categorias.png"))); // NOI18N
         btnSubCategorias.setText("SUB CATEGORIAS");
+        btnSubCategorias.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSubCategoriasActionPerformed(evt);
+            }
+        });
 
         btnEspecificaciones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interface/resources/imgs/especificaciones.png"))); // NOI18N
         btnEspecificaciones.setText("ESPECIFICACIONES");
@@ -115,6 +120,12 @@ public class Menu extends javax.swing.JFrame {
         categoria.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnCategoriasActionPerformed
+
+    private void btnSubCategoriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubCategoriasActionPerformed
+        SubCategorias subCategorias = new SubCategorias();
+        subCategorias.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnSubCategoriasActionPerformed
 
     /**
      * @param args the command line arguments
