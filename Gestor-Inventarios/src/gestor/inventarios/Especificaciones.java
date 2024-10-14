@@ -18,51 +18,16 @@ import javax.swing.JOptionPane;
  *
  * @author esauj
  */
-public class SubCategorias {
+public class Especificaciones {
 
-    public static void editarCategoria(String idEditar, String nuevaCategoria, String nuevaDescripcion) {
-        File archivo = new File("subCategorias.txt");
-        List<String> subCategoriasActualizadas = new ArrayList<>();
-
-        try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
-            String linea;
-
-            while ((linea = br.readLine()) != null) {
-                String[] datos = linea.split("\\|");
-
-                // Si el ID coincide con el que deseamos editar
-                if (datos[0].equals(idEditar)) {
-                    // Reemplazar los datos del usuario
-                    subCategoriasActualizadas.add(idEditar + "|" + nuevaCategoria + "|" + nuevaDescripcion + "|");
-                } else {
-                    // Si no coincide, mantener el usuario actual
-                    subCategoriasActualizadas.add(linea);
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        // Sobrescribir el archivo con los usuarios actualizados
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(archivo))) {
-            for (String subCategoria : subCategoriasActualizadas) {
-                bw.write(subCategoria + "\n");
-            }
-            bw.flush();
-            System.out.println("Usuario editado correctamente.");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void agregarSubCategoria(String id, String categoria, String descripcion) {
-        File archivo = new File("subCategorias.txt");
+    public static void agregarEspecificacion(String id, String nombre, String descripcion, String tipo) {
+        File archivo = new File("especificaciones.txt");
 
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(archivo, true))) {
             // Escribe el nuevo usuario en el archivo
-            bw.write(id + "|" + categoria + "|" + descripcion + "|\n");
+            bw.write(id + "|" + nombre + "|" + descripcion + "|" + tipo + "|\n");
             bw.flush();
-            System.out.println("Sub categoria agregada correctamente.");
+            System.out.println("especificacion agregada correctamente.");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -91,14 +56,14 @@ public class SubCategorias {
         return String.valueOf(maxId + 1);
     }
 
-    public static void eliminarSubCategoria(String id) {
+    public static void eliminarEspecificacion(String id) {
         // Mostrar un cuadro de diálogo de confirmación
         int confirmacion = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que deseas eliminar el registro?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
 
         // Si el usuario selecciona "Sí", procedemos con la eliminación
         if (confirmacion == JOptionPane.YES_OPTION) {
-            File archivo = new File("subCategorias.txt");
-            List<String> subRestantes = new ArrayList<>();
+            File archivo = new File("especificaciones.txt");
+            List<String> espeRestantes = new ArrayList<>();
 
             try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
                 String linea;
@@ -109,7 +74,7 @@ public class SubCategorias {
 
                     // Si el ID no coincide, lo agregamos a la lista temporal
                     if (!partes[0].equals(id)) {
-                        subRestantes.add(linea);
+                        espeRestantes.add(linea);
                     }
                 }
             } catch (IOException e) {
@@ -118,11 +83,11 @@ public class SubCategorias {
 
             // Escribir los usuarios restantes de nuevo en el archivo
             try (BufferedWriter bw = new BufferedWriter(new FileWriter(archivo))) {
-                for (String subCategorias : subRestantes) {
-                    bw.write(subCategorias);
+                for (String especificaciones : espeRestantes) {
+                    bw.write(especificaciones);
                     bw.newLine();
                 }
-                System.out.println("Sub Categoria eliminado correctamente.");
+                System.out.println("Especificacion eliminada correctamente.");
             } catch (IOException e) {
                 e.printStackTrace();
             }

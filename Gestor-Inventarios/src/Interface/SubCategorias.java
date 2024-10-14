@@ -8,6 +8,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -59,6 +60,11 @@ public class SubCategorias extends javax.swing.JFrame {
                 "Id", "Categoria", "Sub Categoria"
             }
         ));
+        tblSubCategorias.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblSubCategoriasMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblSubCategorias);
 
         btnAgregarSub.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interface/resources/imgs/mas.png"))); // NOI18N
@@ -71,6 +77,11 @@ public class SubCategorias extends javax.swing.JFrame {
 
         btnEditarSub.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interface/resources/imgs/lapiz.png"))); // NOI18N
         btnEditarSub.setText("EDITAR");
+        btnEditarSub.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarSubActionPerformed(evt);
+            }
+        });
 
         btnEliminarSub.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interface/resources/imgs/borrar.png"))); // NOI18N
         btnEliminarSub.setText("ELIMINAR");
@@ -170,7 +181,11 @@ public class SubCategorias extends javax.swing.JFrame {
     }//GEN-LAST:event_txtDescripcionActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        // TODO add your handling code here:
+        this.dispose();
+
+        // Abrir la ventana Menu
+        Menu menu = new Menu();  // Crear una instancia de la ventana Menu
+        menu.setVisible(true);
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void cmbCategoriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCategoriasActionPerformed
@@ -178,16 +193,16 @@ public class SubCategorias extends javax.swing.JFrame {
     }//GEN-LAST:event_cmbCategoriasActionPerformed
 
     private void btnAgregarSubActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarSubActionPerformed
-    
-           File archivo = new File("subCategorias.txt");
+
+        File archivo = new File("subCategorias.txt");
 
         // Generar automáticamente el nuevo ID
         String id = gestor.inventarios.Categorias.generarNuevoId(archivo);
-        String descripcion = txtDescripcion.getText();
         String categoria = cmbCategorias.getSelectedItem().toString();
+        String descripcion = txtDescripcion.getText();
 
         // Agregar el usuario al archivo
-        gestor.inventarios.SubCategorias.agregarSubCategoria(id, descripcion, categoria);
+        gestor.inventarios.SubCategorias.agregarSubCategoria(id, categoria, descripcion);
         txtDescripcion.setText("");             // Limpiar campo de usuario
         cmbCategorias.setSelectedIndex(0);
 
@@ -197,7 +212,7 @@ public class SubCategorias extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAgregarSubActionPerformed
 
     private void btnEliminarSubActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarSubActionPerformed
-           // Obtiene la fila seleccionada de la tabla
+        // Obtiene la fila seleccionada de la tabla
         int filaSeleccionada = tblSubCategorias.getSelectedRow();
 
         // Verifica si se ha seleccionado una fila
@@ -215,8 +230,57 @@ public class SubCategorias extends javax.swing.JFrame {
             javax.swing.JOptionPane.showMessageDialog(this, "Por favor seleccione una sub categoria para eliminar.");
         }
     }//GEN-LAST:event_btnEliminarSubActionPerformed
-    
-     private void llenarTablaSubCategorias() {
+
+    private void tblSubCategoriasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSubCategoriasMouseClicked
+        int filaSeleccionada = tblSubCategorias.rowAtPoint(evt.getPoint());  // Obtiene la fila seleccionada a partir del punto del clic
+
+        // Verifica que se hizo clic dentro de una fila válida
+        if (filaSeleccionada != -1) {
+            // Obtener los datos de la fila seleccionada (suponiendo que las columnas están en el orden correcto)
+            String id = tblSubCategorias.getValueAt(filaSeleccionada, 0).toString();  // ID del usuario (columna 0)
+            String categoria = tblSubCategorias.getValueAt(filaSeleccionada, 1).toString();
+            String descripcion = tblSubCategorias.getValueAt(filaSeleccionada, 2).toString();  // Contraseña (columna 2)
+
+            // Llenar los campos con los valores obtenidos
+            txtId.setText(id);
+            cmbCategorias.setSelectedItem(categoria);  // Ajusta el comboBox al rol seleccionado
+            txtDescripcion.setText(descripcion);
+        } else {
+            // Si no se selecciona ninguna fila válida, limpia los campos
+            limpiarCampos();
+        }
+    }//GEN-LAST:event_tblSubCategoriasMouseClicked
+
+    private void btnEditarSubActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarSubActionPerformed
+        if (txtId.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor, selecciona un registro para editar.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;  // Salir si no hay ningún registro seleccionado
+        }
+
+        // Si el campo no está vacío, entonces continúa
+        String idEditar = txtId.getText();  // Obtener el ID a editar
+
+        // Obtener los nuevos valores de los campos de texto
+        String nuevaCategoria = cmbCategorias.getSelectedItem().toString();
+        String nuevaDescripcion = txtDescripcion.getText();
+
+        // Llamar al método para editar el usuario
+        gestor.inventarios.SubCategorias.editarCategoria(idEditar, nuevaCategoria, nuevaDescripcion);
+
+        // Limpiar los campos
+        limpiarCampos();
+
+        // Actualizar la tabla
+        llenarTablaSubCategorias();
+    }//GEN-LAST:event_btnEditarSubActionPerformed
+
+    private void limpiarCampos() {
+        txtId.setText("");
+        cmbCategorias.setSelectedIndex(0);  // Restablece el ComboBox al primer valor
+        txtDescripcion.setText("");
+    }
+
+    private void llenarTablaSubCategorias() {
         // Definimos el modelo de la tabla
         DefaultTableModel model = (DefaultTableModel) tblSubCategorias.getModel();
 
@@ -233,14 +297,14 @@ public class SubCategorias extends javax.swing.JFrame {
                 String[] partes = linea.split("\\|");
                 // Agregar los valores como una nueva fila en la tabla
                 model.addRow(partes);
+
             }
 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    
-    
+
     private void cargarSubCategoriasDesdeArchivo() {
         File archivoRoles = new File("categorias.txt");
 
