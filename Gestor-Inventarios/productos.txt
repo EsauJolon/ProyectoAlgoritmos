@@ -1,0 +1,3 @@
+P1|asdf|adsf|Herramientas|Construccion|45.5|40|
+P2|zapatos|asdfadsf|Calzado|asdf|45.2|5|
+P3|Nose|asdfasdf|Herramientas|Construccion|45.0|5|

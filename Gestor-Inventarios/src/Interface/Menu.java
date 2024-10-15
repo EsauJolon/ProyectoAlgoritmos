@@ -72,6 +72,11 @@ public class Menu extends javax.swing.JFrame {
 
         btnProductos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interface/resources/imgs/estanteria.png"))); // NOI18N
         btnProductos.setText("PRODUCTOS");
+        btnProductos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProductosActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -137,6 +142,12 @@ public class Menu extends javax.swing.JFrame {
         Especificaciones especificaciones = new Especificaciones();
         especificaciones.setVisible(true);
     }//GEN-LAST:event_btnEspecificacionesActionPerformed
+
+    private void btnProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductosActionPerformed
+        this.dispose();
+        Productos productos = new Productos();
+        productos.setVisible(true);
+    }//GEN-LAST:event_btnProductosActionPerformed
 
     /**
      * @param args the command line arguments

@@ -200,6 +200,7 @@ public class Login extends javax.swing.JFrame {
             "subCategorias.txt",
             "Roles.txt",
             "especificaciones.txt",
+            "productos.txt",
             
         };
 

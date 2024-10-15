@@ -109,6 +109,12 @@ public class Users extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI Historic", 0, 12)); // NOI18N
         jLabel1.setText("USUARIOS");
 
+        txtUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtUsuarioActionPerformed(evt);
+            }
+        });
+
         jLabel3.setText("Usuario :");
 
         jLabel4.setText("Contraseña :");
@@ -280,6 +286,7 @@ public class Users extends javax.swing.JFrame {
 
         // Actualizar la tabla
         llenarTablaUsuarios();
+        
     }//GEN-LAST:event_btnEditUserActionPerformed
 
     private void tlbUsersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tlbUsersMouseClicked
@@ -314,6 +321,10 @@ public class Users extends javax.swing.JFrame {
     private void txtIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdActionPerformed
         txtId.setVisible(true);
     }//GEN-LAST:event_txtIdActionPerformed
+
+    private void txtUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtUsuarioActionPerformed
 
     private void cargarRolesDesdeArchivo() {
         File archivoRoles = new File("Roles.txt");
