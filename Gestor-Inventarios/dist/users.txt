@@ -1,0 +1,3 @@
+1|esau|123|admin|
+2|erick|123|cajero|
+3|erickkkk|123|cajero|
