@@ -8,6 +8,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -23,6 +24,8 @@ public class Especificaciones extends javax.swing.JFrame {
         initComponents();
         llenarTablaEspecificaciones();
         opciones();
+        setLocationRelativeTo(null);
+        txtId.setVisible(false);
     }
 
     private void llenarTablaEspecificaciones() {
@@ -101,6 +104,11 @@ public class Especificaciones extends javax.swing.JFrame {
                 "Id", "Nombre", "Descripción", "Tipo de dato"
             }
         ));
+        tblEspecificaciones.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblEspecificacionesMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblEspecificaciones);
 
         btnAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interface/resources/imgs/mas.png"))); // NOI18N
@@ -113,6 +121,11 @@ public class Especificaciones extends javax.swing.JFrame {
 
         btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interface/resources/imgs/lapiz.png"))); // NOI18N
         btnEditar.setText("EDITAR");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
 
         btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interface/resources/imgs/borrar.png"))); // NOI18N
         btnEliminar.setText("ELIMINAR");
@@ -262,7 +275,7 @@ public class Especificaciones extends javax.swing.JFrame {
 
         // Agregar el usuario al archivo
         gestor.inventarios.Especificaciones.agregarEspecificacion(id, nombre, descripcion, tipo);
-        txtNombre.setText("");             
+        txtNombre.setText("");
         txtDescripcion.setText("");             // Limpiar campo de usuario
         cmbTipo.setSelectedIndex(0);
 
@@ -293,6 +306,80 @@ public class Especificaciones extends javax.swing.JFrame {
     private void cmbTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTipoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbTipoActionPerformed
+
+    private void tblEspecificacionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEspecificacionesMouseClicked
+        int filaSeleccionada = tblEspecificaciones.rowAtPoint(evt.getPoint());  // Obtiene la fila seleccionada a partir del punto del clic
+
+        // Verifica que se hizo clic dentro de una fila válida
+        if (filaSeleccionada != -1) {
+            // Obtener los datos de la fila seleccionada (suponiendo que las columnas están en el orden correcto)
+            String id = tblEspecificaciones.getValueAt(filaSeleccionada, 0).toString();  // ID del usuario (columna 0)
+            String nombre = tblEspecificaciones.getValueAt(filaSeleccionada, 1).toString();
+            String descripcion = tblEspecificaciones.getValueAt(filaSeleccionada, 2).toString();
+            String tipo = tblEspecificaciones.getValueAt(filaSeleccionada, 3).toString();
+            // Contraseña (columna 2)
+
+            // Llenar los campos con los valores obtenidos
+            txtId.setText(id);
+            txtNombre.setText(nombre);
+            txtDescripcion.setText(descripcion);
+            cmbTipo.setSelectedItem(tipo);  // Ajusta el comboBox al rol seleccionado
+
+        } else {
+            // Si no se selecciona ninguna fila válida, limpia los campos
+            limpiarCampos();
+        }
+    }//GEN-LAST:event_tblEspecificacionesMouseClicked
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        if (txtId.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this,
+                    "Por favor, selecciona un registro para editar.",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            return;  // Salir si no hay ningún registro seleccionado
+        }
+
+        // Confirmar la edición
+        int opcion = JOptionPane.showConfirmDialog(this,
+                "¿Está seguro de que desea editar el registro con ID " + txtId.getText() + "?",
+                "Confirmar Edición", JOptionPane.YES_NO_OPTION);
+
+        if (opcion != JOptionPane.YES_OPTION) {
+            JOptionPane.showMessageDialog(this, "Edición cancelada.");
+            return;
+        }
+
+        // Obtener los datos del formulario
+        String idEditar = txtId.getText();
+        String nuevoNombre = txtNombre.getText();
+        String nuevaDescripcion = txtDescripcion.getText();
+        String nuevaCategoria = cmbTipo.getSelectedItem().toString();
+
+        // Llamar al método para editar la especificación
+        boolean exito = gestor.inventarios.Especificaciones.editarEspecificacion(
+                idEditar, nuevoNombre, nuevaDescripcion, nuevaCategoria);
+
+        if (exito) {
+            JOptionPane.showMessageDialog(this,
+                    "El registro ha sido editado correctamente.",
+                    "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this,
+                    "Error al editar el registro. Verifique los datos e intente nuevamente.",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+        // Limpiar campos y actualizar la tabla
+        limpiarCampos();
+        llenarTablaEspecificaciones();
+    }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void limpiarCampos() {
+        txtId.setText("");
+        txtNombre.setText("");
+        txtDescripcion.setText("");
+
+    }
 
     /**
      * @param args the command line arguments

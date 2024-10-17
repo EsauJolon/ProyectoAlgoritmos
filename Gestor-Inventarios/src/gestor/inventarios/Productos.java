@@ -85,7 +85,97 @@ public class Productos {
         return "P" + (maxId + 1);
     }
 
-    
+    public static void editarProducto(String idEditar, String nuevoNombre, String nuevaDescripcion,
+            String nuevaCategoria, String nuevaSub, String nuevoPrecio, String nuevoStock) {
+
+        // Mostrar alerta de confirmación
+        int opcion = JOptionPane.showConfirmDialog(null,
+                "¿Está seguro que desea editar el registro con ID " + idEditar + "?",
+                "Confirmar Edición", JOptionPane.YES_NO_OPTION);
+
+        if (opcion != JOptionPane.YES_OPTION) {
+            JOptionPane.showMessageDialog(null, "Edición cancelada.");
+            return;
+        }
+
+        // Primero editamos el archivo de productos
+        File archivoProductos = new File("productos.txt");
+        List<String> productosActualizados = new ArrayList<>();
+        String nombreAntiguo = "";
+
+        try (BufferedReader br = new BufferedReader(new FileReader(archivoProductos))) {
+            String linea;
+
+            while ((linea = br.readLine()) != null) {
+                String[] datos = linea.split("\\|");
+
+                // Si el ID coincide, actualizamos los datos y guardamos el nombre antiguo
+                if (datos[0].equals(idEditar)) {
+                    nombreAntiguo = datos[1]; // Guardamos el nombre antiguo
+                    productosActualizados.add(idEditar + "|" + nuevoNombre + "|" + nuevaDescripcion + "|"
+                            + nuevaCategoria + "|" + nuevaSub + "|" + nuevoPrecio + "|" + nuevoStock + "|");
+                } else {
+                    productosActualizados.add(linea);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al leer productos.txt", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Sobrescribir el archivo productos.txt
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(archivoProductos))) {
+            for (String producto : productosActualizados) {
+                bw.write(producto + "\n");
+            }
+            bw.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al escribir en productos.txt", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Ahora actualizamos asignarEspecificaciones.txt si el nombre coincide
+        File archivoEspecificaciones = new File("asignarEspecificaciones.txt");
+        List<String> especificacionesActualizadas = new ArrayList<>();
+
+        try (BufferedReader br = new BufferedReader(new FileReader(archivoEspecificaciones))) {
+            String linea;
+
+            while ((linea = br.readLine()) != null) {
+                String[] datos = linea.split("\\|");
+
+                // Verificar si la línea tiene al menos 4 campos y si el nombre coincide con el antiguo
+                if (datos.length >= 4 && datos[1].equals(nombreAntiguo)) {
+                    // Actualizar la línea con el nuevo nombre
+                    especificacionesActualizadas.add(
+                            datos[0] + "|" + nuevoNombre + "|" + datos[2] + "|" + datos[3] + "|"
+                    );
+                } else {
+                    // Mantener la línea sin cambios si no coincide
+                    especificacionesActualizadas.add(linea);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al leer asignarEspecificaciones.txt", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Sobrescribir el archivo asignarEspecificaciones.txt
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(archivoEspecificaciones))) {
+            for (String especificacion : especificacionesActualizadas) {
+                bw.write(especificacion + "\n");
+            }
+            bw.flush();
+            JOptionPane.showMessageDialog(null, "Producto y especificaciones actualizados correctamente.");
+        } catch (IOException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al escribir en asignarEspecificaciones.txt", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
     public static void eliminarProducto(String id) {
         // Mostrar un cuadro de diálogo de confirmación
         int confirmacion = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que deseas eliminar el producto?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
@@ -125,5 +215,5 @@ public class Productos {
             System.out.println("Eliminación cancelada.");
         }
     }
-    
+
 }

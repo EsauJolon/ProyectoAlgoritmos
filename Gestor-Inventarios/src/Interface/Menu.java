@@ -18,6 +18,7 @@ public class Menu extends javax.swing.JFrame {
      */
     public Menu() {
         initComponents();
+        setLocationRelativeTo(null);
 
     }
 
@@ -155,15 +156,13 @@ public class Menu extends javax.swing.JFrame {
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
 
-        /* Create and display the form */
+ /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Menu().setVisible(true);
             }
         });
     }
-
-   
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

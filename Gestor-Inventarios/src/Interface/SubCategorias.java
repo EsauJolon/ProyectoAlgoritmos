@@ -24,6 +24,8 @@ public class SubCategorias extends javax.swing.JFrame {
         initComponents();
         cargarSubCategoriasDesdeArchivo();
         llenarTablaSubCategorias();
+        setLocationRelativeTo(null);
+        txtId.setVisible(false);
     }
 
     /**

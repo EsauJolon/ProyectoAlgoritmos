@@ -23,6 +23,8 @@ public class Categorias extends javax.swing.JFrame {
     public Categorias() {
         initComponents();
         llenarTablaCategorias();
+        setLocationRelativeTo(null);
+        txtId.setVisible(false);
     }
 
     /**

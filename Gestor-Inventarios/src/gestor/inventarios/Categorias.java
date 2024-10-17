@@ -55,8 +55,8 @@ public class Categorias {
         // Retorna el siguiente ID disponible
         return String.valueOf(maxId + 1);
     }
-    
-     public static void eliminarCategoria(String id) {
+
+    public static void eliminarCategoria(String id) {
         // Mostrar un cuadro de diálogo de confirmación
         int confirmacion = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que deseas eliminar esta categoria?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
 
@@ -96,8 +96,7 @@ public class Categorias {
         }
     }
 
-    
-        public static void editarCategoria(String idEditar, String nuevoNombre, String nuevaDescripcion) {
+    public static void editarCategoria(String idEditar, String nuevoNombre, String nuevaDescripcion) {
         File archivo = new File("categorias.txt");
         List<String> categoriasActualizadas = new ArrayList<>();
 
@@ -131,7 +130,5 @@ public class Categorias {
             e.printStackTrace();
         }
     }
-     
-     
 
 }

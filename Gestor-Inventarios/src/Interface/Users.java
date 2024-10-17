@@ -28,6 +28,8 @@ public class Users extends javax.swing.JFrame {
         initComponents();
         llenarTablaUsuarios();
         cargarRolesDesdeArchivo();
+        setLocationRelativeTo(null);
+        txtId.setVisible(false);
     }
 
     /**
@@ -286,7 +288,7 @@ public class Users extends javax.swing.JFrame {
 
         // Actualizar la tabla
         llenarTablaUsuarios();
-        
+
     }//GEN-LAST:event_btnEditUserActionPerformed
 
     private void tlbUsersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tlbUsersMouseClicked

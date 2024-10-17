@@ -1,0 +1,2 @@
+3|Expiraciones|fecha que vence el producto|Fecha|
+4|Numero|numero|Numero|

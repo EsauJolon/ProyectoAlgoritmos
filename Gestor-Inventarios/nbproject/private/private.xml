@@ -3,11 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Documentos/NetBeansProjects/ProyectoAlgoritmos/Gestor-Inventarios/src/gestor/inventarios/SubCategorias.java</file>
-            <file>file:/D:/Documentos/NetBeansProjects/ProyectoAlgoritmos/Gestor-Inventarios/src/gestor/inventarios/Especificaciones.java</file>
-            <file>file:/D:/Documentos/NetBeansProjects/ProyectoAlgoritmos/Gestor-Inventarios/src/Interface/SubCategorias.java</file>
-            <file>file:/D:/Documentos/NetBeansProjects/ProyectoAlgoritmos/Gestor-Inventarios/src/Interface/Especificaciones.java</file>
-            <file>file:/D:/Documentos/NetBeansProjects/ProyectoAlgoritmos/Gestor-Inventarios/src/Interface/Menu.java</file>
+            <file>file:/D:/Documentos/NetBeansProjects/ProyectoAlgoritmos/Gestor-Inventarios/src/Interface/Users.java</file>
+            <file>file:/D:/Documentos/NetBeansProjects/ProyectoAlgoritmos/Gestor-Inventarios/src/Interface/Productos.java</file>
+            <file>file:/D:/Documentos/NetBeansProjects/ProyectoAlgoritmos/Gestor-Inventarios/src/gestor/inventarios/Productos.java</file>
         </group>
     </open-files>
 </project-private>

@@ -1,4 +1,3 @@
 1|Limpieza|Productos de limpieza|
 2|Calzado|calzado|
 3|Herramientas|Herramientas de construcción|
-4|tu puta ex|putona|

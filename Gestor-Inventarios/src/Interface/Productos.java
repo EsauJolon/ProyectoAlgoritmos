@@ -26,6 +26,8 @@ public class Productos extends javax.swing.JFrame {
         initComponents();
         cargarCategorias();
         llenarTablaProductos();
+        setLocationRelativeTo(null);
+
     }
 
     private void cargarCategorias() {
@@ -114,10 +116,6 @@ public class Productos extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblProductos = new javax.swing.JTable();
         jToggleButton1 = new javax.swing.JToggleButton();
-        btnAgregar = new javax.swing.JToggleButton();
-        btnEditar = new javax.swing.JToggleButton();
-        btnEspecificaciones = new javax.swing.JToggleButton();
-        btnEliminar = new javax.swing.JToggleButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -132,9 +130,18 @@ public class Productos extends javax.swing.JFrame {
         txtPrecio = new javax.swing.JTextField();
         txtStock = new javax.swing.JTextField();
         txtId = new javax.swing.JTextField();
+        btnAgregar = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
+        btnEditar = new javax.swing.JButton();
+        btnEspecificaciones = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        tblProductos = new javax.swing.JTable(){
+            public boolean isCellEditable(int rowIndex, int colIndex){
+                return false;
+            }
+        };
         tblProductos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
@@ -157,28 +164,6 @@ public class Productos extends javax.swing.JFrame {
         jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleButton1ActionPerformed(evt);
-            }
-        });
-
-        btnAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interface/resources/imgs/mas.png"))); // NOI18N
-        btnAgregar.setText("AGREGAR");
-        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarActionPerformed(evt);
-            }
-        });
-
-        btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interface/resources/imgs/lapiz.png"))); // NOI18N
-        btnEditar.setText("EDITAR");
-
-        btnEspecificaciones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interface/resources/imgs/especificaciones.png"))); // NOI18N
-        btnEspecificaciones.setText("ESPECIFICACIONES");
-
-        btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interface/resources/imgs/borrar.png"))); // NOI18N
-        btnEliminar.setText("ELIMINAR");
-        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEliminarActionPerformed(evt);
             }
         });
 
@@ -206,6 +191,38 @@ public class Productos extends javax.swing.JFrame {
             }
         });
 
+        btnAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interface/resources/imgs/mas.png"))); // NOI18N
+        btnAgregar.setText("AGREGAR");
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarActionPerformed(evt);
+            }
+        });
+
+        btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interface/resources/imgs/borrar.png"))); // NOI18N
+        btnEliminar.setText("ELIMINAR");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
+
+        btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interface/resources/imgs/lapiz.png"))); // NOI18N
+        btnEditar.setText("EDITAR");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
+
+        btnEspecificaciones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interface/resources/imgs/especificaciones.png"))); // NOI18N
+        btnEspecificaciones.setText("ESPECIFICACIONES");
+        btnEspecificaciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEspecificacionesActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -216,9 +233,8 @@ public class Productos extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jToggleButton1)
-                        .addGap(20, 20, 20))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jToggleButton1))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 696, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
@@ -246,13 +262,14 @@ public class Productos extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(txtStock, javax.swing.GroupLayout.DEFAULT_SIZE, 69, Short.MAX_VALUE)
                                     .addComponent(txtPrecio))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnEspecificaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(16, 16, 16))))
+                            .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(btnEspecificaciones, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                                .addComponent(btnEditar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(20, 20, 20))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -264,9 +281,18 @@ public class Productos extends javax.swing.JFrame {
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
                         .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addComponent(btnAgregar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnEditar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnEspecificaciones)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnEliminar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
                             .addComponent(jLabel6)
@@ -283,16 +309,8 @@ public class Productos extends javax.swing.JFrame {
                             .addComponent(cmbSub, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtStock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(21, 21, 21)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnAgregar)
-                        .addGap(12, 12, 12)
-                        .addComponent(btnEditar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnEspecificaciones)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnEliminar)))
-                .addGap(64, 64, 64))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(130, Short.MAX_VALUE))
         );
 
         pack();
@@ -303,6 +321,41 @@ public class Productos extends javax.swing.JFrame {
         Menu menu = new Menu();
         menu.setVisible(true);
     }//GEN-LAST:event_jToggleButton1ActionPerformed
+
+    private void tblProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProductosMouseClicked
+        int filaSeleccionada = tblProductos.rowAtPoint(evt.getPoint());  // Obtiene la fila seleccionada a partir del punto del clic
+
+        // Verifica que se hizo clic dentro de una fila válida
+        if (filaSeleccionada != -1) {
+            // Obtener los datos de la fila seleccionada (suponiendo que las columnas están en el orden correcto)
+            String id = tblProductos.getValueAt(filaSeleccionada, 0).toString();  // ID del usuario (columna 0)
+            String nombre = tblProductos.getValueAt(filaSeleccionada, 1).toString();  // Nombre de usuario (columna 1)
+            String descripcion = tblProductos.getValueAt(filaSeleccionada, 2).toString();  // Contraseña (columna 2)
+            String categoria = tblProductos.getValueAt(filaSeleccionada, 3).toString();  // Rol (columna 3)
+            String sub = tblProductos.getValueAt(filaSeleccionada, 4).toString();  // Rol (columna 3)
+            double precio = Double.parseDouble(tblProductos.getValueAt(filaSeleccionada, 5).toString());
+            int stock = Integer.parseInt(tblProductos.getValueAt(filaSeleccionada, 6).toString());
+
+            // Llenar los campos con los valores obtenidos
+            txtId.setText(id);
+            txtNombre.setText(nombre);
+            txtDescripcion.setText(descripcion);
+            cmbCategoria.setSelectedItem(categoria);
+            cmbSub.setSelectedItem(sub);
+            txtStock.setText(String.valueOf(stock));
+            txtPrecio.setText(String.valueOf(precio));
+
+        } else {
+            // Si no se selecciona ninguna fila válida, limpia los campos
+            limpiarCampos();
+        }
+
+
+    }//GEN-LAST:event_tblProductosMouseClicked
+
+    private void txtIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdActionPerformed
+
+    }//GEN-LAST:event_txtIdActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         try {
@@ -353,43 +406,7 @@ public class Productos extends javax.swing.JFrame {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Ocurrió un error al agregar el producto.", "Error", JOptionPane.ERROR_MESSAGE);
         }
-
     }//GEN-LAST:event_btnAgregarActionPerformed
-
-    private void tblProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProductosMouseClicked
-        int filaSeleccionada = tblProductos.rowAtPoint(evt.getPoint());  // Obtiene la fila seleccionada a partir del punto del clic
-
-        // Verifica que se hizo clic dentro de una fila válida
-        if (filaSeleccionada != -1) {
-            // Obtener los datos de la fila seleccionada (suponiendo que las columnas están en el orden correcto)
-            String id = tblProductos.getValueAt(filaSeleccionada, 0).toString();  // ID del usuario (columna 0)
-            String nombre = tblProductos.getValueAt(filaSeleccionada, 1).toString();  // Nombre de usuario (columna 1)
-            String descripcion = tblProductos.getValueAt(filaSeleccionada, 2).toString();  // Contraseña (columna 2)
-            String categoria = tblProductos.getValueAt(filaSeleccionada, 3).toString();  // Rol (columna 3)
-            String sub = tblProductos.getValueAt(filaSeleccionada, 4).toString();  // Rol (columna 3)
-            double precio = Double.parseDouble(tblProductos.getValueAt(filaSeleccionada, 5).toString());
-            int stock = Integer.parseInt(tblProductos.getValueAt(filaSeleccionada, 6).toString());
-
-            // Llenar los campos con los valores obtenidos
-            txtId.setText(id);
-            txtNombre.setText(nombre);
-            txtDescripcion.setText(descripcion);
-            cmbCategoria.setSelectedItem(categoria);
-            cmbSub.setSelectedItem(sub);
-            txtStock.setText(String.valueOf(stock));
-            txtPrecio.setText(String.valueOf(precio));
-
-        } else {
-            // Si no se selecciona ninguna fila válida, limpia los campos
-            limpiarCampos();
-        }
-
-
-    }//GEN-LAST:event_tblProductosMouseClicked
-
-    private void txtIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdActionPerformed
-
-    }//GEN-LAST:event_txtIdActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         int filaSeleccionada = tblProductos.getSelectedRow();
@@ -410,6 +427,58 @@ public class Productos extends javax.swing.JFrame {
             javax.swing.JOptionPane.showMessageDialog(this, "Por favor seleccione un producto para eliminar.");
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        if (txtId.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor, selecciona un registro para editar.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;  // Salir si no hay ningún registro seleccionado
+        }
+
+        // Si el campo no está vacío, entonces continúa
+        String idEditar = txtId.getText();  // Obtener el ID a editar
+
+        // Obtener los nuevos valores de los campos de texto
+        String nuevoNombre = txtNombre.getText();
+        String nuevaDescripcion = txtDescripcion.getText();
+        String nuevaCategoria = cmbCategoria.getSelectedItem().toString();
+        String nuevaSub = cmbSub.getSelectedItem().toString();
+        String nuevoPrecio = txtPrecio.getText();
+        String nuevoStock = txtStock.getText();
+        // Llamar al método para editar el usuario
+        gestor.inventarios.Productos.editarProducto(idEditar, nuevoNombre, nuevaDescripcion, nuevaCategoria, nuevaSub, nuevoPrecio, nuevoStock);
+
+        // Limpiar los campos
+        limpiarCampos();
+
+        // Actualizar la tabla
+        llenarTablaProductos();
+    }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void btnEspecificacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEspecificacionesActionPerformed
+        // Verificar si hay una fila seleccionada
+        int selectedRow = tblProductos.getSelectedRow();
+
+        if (selectedRow == -1) {
+            // No hay ninguna fila seleccionada, mostrar una alerta
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione un producto de la tabla.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            return; // Detener la ejecución del método
+        }
+
+        // Si hay una fila seleccionada, proceder
+        this.dispose();  // Cerrar la ventana actual
+
+        // Obtener el texto del txtNombre de la vista actual
+        String nombreProducto = txtNombre.getText();
+
+        // Crear una instancia de la vista AsignarEspecificaciones
+        AsignarEspecificaciones asignarEspecificaciones = new AsignarEspecificaciones();
+
+        // Asignar el valor obtenido al txtProducto de la vista AsignarEspecificaciones
+        asignarEspecificaciones.setProductoText(nombreProducto);
+
+        // Hacer visible la vista AsignarEspecificaciones
+        asignarEspecificaciones.setVisible(true);
+    }//GEN-LAST:event_btnEspecificacionesActionPerformed
 
     private void limpiarCampos() {
         txtId.setText("");
@@ -483,10 +552,10 @@ public class Productos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JToggleButton btnAgregar;
-    private javax.swing.JToggleButton btnEditar;
-    private javax.swing.JToggleButton btnEliminar;
-    private javax.swing.JToggleButton btnEspecificaciones;
+    private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnEditar;
+    private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnEspecificaciones;
     private javax.swing.JComboBox<String> cmbCategoria;
     private javax.swing.JComboBox<String> cmbSub;
     private javax.swing.JLabel jLabel1;

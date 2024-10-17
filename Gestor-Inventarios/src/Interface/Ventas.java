@@ -15,6 +15,7 @@ public class Ventas extends javax.swing.JFrame {
      */
     public Ventas() {
         initComponents();
+         setLocationRelativeTo(null);
     }
 
     /**

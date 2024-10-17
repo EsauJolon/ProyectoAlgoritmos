@@ -22,6 +22,7 @@ public class Login extends javax.swing.JFrame {
      */
     public Login() {
         initComponents();
+         setLocationRelativeTo(null);
     }
 
     /**
@@ -201,6 +202,7 @@ public class Login extends javax.swing.JFrame {
             "Roles.txt",
             "especificaciones.txt",
             "productos.txt",
+            "asignarEspecificaciones.txt",
             
         };
 

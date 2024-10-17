@@ -96,4 +96,46 @@ public class Especificaciones {
         }
     }
 
+    public static boolean editarEspecificacion(String idEditar, String nuevoNombre,
+            String nuevaDescripcion, String nuevaCategoria) {
+
+        File archivo = new File("especificaciones.txt");
+        List<String> especificacionesActualizadas = new ArrayList<>();
+        boolean registroEncontrado = false;
+
+        try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
+            String linea;
+
+            while ((linea = br.readLine()) != null) {
+                String[] datos = linea.split("\\|");
+
+                if (datos[0].equals(idEditar)) {
+                    // Si el ID coincide, actualizamos los datos
+                    especificacionesActualizadas.add(idEditar + "|" + nuevoNombre + "|"
+                            + nuevaDescripcion + "|" + nuevaCategoria + "|");
+                    registroEncontrado = true;  // Indicar que se encontró el registro
+                } else {
+                    // Si no coincide, mantener el registro sin cambios
+                    especificacionesActualizadas.add(linea);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;  // Retornar false si ocurre un error al leer el archivo
+        }
+
+        // Sobrescribir el archivo con los datos actualizados
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(archivo))) {
+            for (String especificacion : especificacionesActualizadas) {
+                bw.write(especificacion + "\n");
+            }
+            bw.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;  // Retornar false si ocurre un error al escribir el archivo
+        }
+
+        return registroEncontrado;  // Retornar true si la edición fue exitosa
+    }
+
 }
