@@ -6,8 +6,10 @@ package Interface;
 
 import javax.swing.JOptionPane;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import javax.swing.JOptionPane;
 
@@ -22,7 +24,7 @@ public class Login extends javax.swing.JFrame {
      */
     public Login() {
         initComponents();
-         setLocationRelativeTo(null);
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -203,7 +205,9 @@ public class Login extends javax.swing.JFrame {
             "especificaciones.txt",
             "productos.txt",
             "asignarEspecificaciones.txt",
-            
+            "listaVentas.txt",
+            "detallesVentas.txt",
+        
         };
 
         for (String path : filePaths) {
@@ -212,6 +216,14 @@ public class Login extends javax.swing.JFrame {
                 try {
                     if (file.createNewFile()) {
                         System.out.println("Archivo creado: " + file.getName());
+
+                        // Insertar contenido inicial en Roles.txt y users.txt
+                        if (path.equals("Roles.txt")) {
+                            escribirRegistroEnArchivo(file, "1|admin|\n");
+                        } else if (path.equals("users.txt")) {
+                            escribirRegistroEnArchivo(file, "1|admin|123|admin|\n");
+                        }
+
                     } else {
                         System.out.println("No se pudo crear el archivo: " + file.getName());
                     }
@@ -222,6 +234,16 @@ public class Login extends javax.swing.JFrame {
             } else {
                 System.out.println("El archivo ya existe: " + file.getName());
             }
+        }
+    }
+
+    private static void escribirRegistroEnArchivo(File file, String registro) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file, true))) {
+            writer.write(registro);
+            System.out.println("Registro agregado en " + file.getName());
+        } catch (IOException e) {
+            System.out.println("Ocurrió un error al escribir en " + file.getName());
+            e.printStackTrace();
         }
     }
 

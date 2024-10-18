@@ -1,0 +1,6 @@
+V1|Fecha|Cliente|
+V2|Fecha|Cliente|
+V3|Fecha|Cliente|
+V4|Fecha|Cliente|
+V5|Fecha|Cliente|
+V6|Fecha|Cliente|
