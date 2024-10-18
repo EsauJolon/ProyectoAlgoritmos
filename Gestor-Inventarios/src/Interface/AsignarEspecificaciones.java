@@ -61,7 +61,6 @@ public class AsignarEspecificaciones extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblAsigEspe = new javax.swing.JTable();
         btnAgregar = new javax.swing.JButton();
-        btnEditar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -94,11 +93,13 @@ public class AsignarEspecificaciones extends javax.swing.JFrame {
             }
         });
 
-        btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interface/resources/imgs/lapiz.png"))); // NOI18N
-        btnEditar.setText("EDITAR");
-
         btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interface/resources/imgs/borrar.png"))); // NOI18N
         btnEliminar.setText("ELIMINAR");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interface/resources/imgs/exit.png"))); // NOI18N
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -134,9 +135,7 @@ public class AsignarEspecificaciones extends javax.swing.JFrame {
                             .addGap(61, 61, 61)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(btnAgregar)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(btnEditar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnEliminar, javax.swing.GroupLayout.Alignment.LEADING)))))
+                                .addComponent(btnEliminar))))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
@@ -175,9 +174,8 @@ public class AsignarEspecificaciones extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnAgregar)
                         .addGap(18, 18, 18)
-                        .addComponent(btnEditar)
-                        .addGap(29, 29, 29)
-                        .addComponent(btnEliminar))
+                        .addComponent(btnEliminar)
+                        .addGap(105, 105, 105))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(62, 62, 62))
         );
@@ -193,7 +191,7 @@ public class AsignarEspecificaciones extends javax.swing.JFrame {
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         try {
-            File archivo = new File("productos.txt");
+            File archivo = new File("asignarEspecificaciones.txt");
 
             // Generar automáticamente el nuevo ID
             String id = gestor.inventarios.AsignarEspecificaciones.generarNuevoId(archivo);
@@ -242,6 +240,26 @@ public class AsignarEspecificaciones extends javax.swing.JFrame {
     private void cmbEspecificacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbEspecificacionActionPerformed
   
     }//GEN-LAST:event_cmbEspecificacionActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+             // Obtiene la fila seleccionada de la tabla
+        int filaSeleccionada = tblAsigEspe.getSelectedRow();
+
+        // Verifica si se ha seleccionado una fila
+        if (filaSeleccionada != -1) {
+            // Obtiene el ID del usuario en la columna 0 (primera columna de la tabla)
+            String id = tblAsigEspe.getValueAt(filaSeleccionada, 0).toString();
+
+            // Llama al método para eliminar el usuario del archivo
+            gestor.inventarios.AsignarEspecificaciones.eliminarEspecificacion(id);
+
+            // Actualiza la tabla después de eliminar el usuario
+            llenarTablaEspecificaciones();
+        } else {
+            // Muestra un mensaje de error si no se seleccionó ninguna fila
+            javax.swing.JOptionPane.showMessageDialog(this, "Por favor seleccione una especificacion para eliminar.");
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
 
     /// VALIDACION DE DATOS PARA EL CMB
     public String obtenerTipoDatoEspecificacion(String especificacionSeleccionada) {
@@ -428,7 +446,6 @@ public class AsignarEspecificaciones extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
-    private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnSalir;
     private javax.swing.JComboBox<String> cmbEspecificacion;

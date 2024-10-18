@@ -10,6 +10,9 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -30,8 +33,7 @@ public class AsignarEspecificaciones {
         }
     }
 
-    
-     public static String generarNuevoId(File archivo) {
+    public static String generarNuevoId(File archivo) {
         int maxId = 0;
 
         // Verificar si el archivo existe y no está vacío
@@ -51,7 +53,7 @@ public class AsignarEspecificaciones {
                 if (partes.length >= 1) {
                     String id = partes[0].trim();
 
-                    // Verificar que el ID comience con "P" y tenga al menos un número
+                    // Verificar que el ID comience con "S" y tenga al menos un número
                     if (id.startsWith("S") && id.length() > 1) {
                         String numeroStr = id.substring(1); // Obtener la parte numérica
 
@@ -74,13 +76,55 @@ public class AsignarEspecificaciones {
             }
         } catch (IOException e) {
             e.printStackTrace();
-            // En caso de error al leer el archivo, puedes manejarlo según tus necesidades
-            // Por ejemplo, podrías lanzar una excepción o retornar un valor predeterminado
-            return "S1"; // Retornar "P1" como fallback
+            return "S1"; // Retornar "S1" en caso de error
         }
 
-        // Retornar el siguiente ID disponible con una 'P' al inicio
+        // Retornar el siguiente ID disponible con una 'S' al inicio
         return "S" + (maxId + 1);
     }
-    
+
+    public static void eliminarEspecificacion(String id) {
+        // Mostrar un cuadro de diálogo de confirmación
+        int confirmacion = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que deseas eliminar el registro?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
+
+        // Si el usuario selecciona "Sí", procedemos con la eliminación
+        if (confirmacion == JOptionPane.YES_OPTION) {
+            File archivo = new File("asignarEspecificaciones.txt");
+            List<String> espeRestantes = new ArrayList<>(); // Lista para almacenar las líneas que no serán eliminadas
+
+            try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
+                String linea;
+                // Leer cada línea del archivo
+                while ((linea = br.readLine()) != null) {
+                    // Dividir la línea en los diferentes valores
+                    String[] partes = linea.split("\\|");
+
+                    // Verificar que la línea tenga suficientes partes
+                    if (partes.length > 0) {
+                        // Comparamos el id obtenido de la tabla con el id de la línea actual (quitando espacios en blanco)
+                        if (!partes[0].trim().equals(id.trim())) {
+                            // Si los IDs no coinciden, agregamos la línea a la lista de las restantes
+                            espeRestantes.add(linea);
+                        }
+                    }
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            // Sobreescribir el archivo con los registros restantes (excluyendo el eliminado)
+            try (BufferedWriter bw = new BufferedWriter(new FileWriter(archivo))) {
+                for (String especificaciones : espeRestantes) {
+                    bw.write(especificaciones);
+                    bw.newLine();
+                }
+                System.out.println("Especificación eliminada correctamente.");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("Eliminación cancelada.");
+        }
+    }
+
 }

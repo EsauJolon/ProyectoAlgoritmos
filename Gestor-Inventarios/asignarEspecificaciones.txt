@@ -1,8 +1,3 @@
 P1|Raid|Expiracion|asdf|
-S1|Croquetas|Expiracion|04/20/15|
-S1|Croquetas|Color|444|
-S1|Croquetas|Talla|asdf|
-S1|Croquetas|Expiracion|17/10/2024|
-S1|Croquetas|Expiracion|04/10/2024|
-S1|Holas|Numero|545|
-S1|Holas|Expiracion|14/10/2024|
+S1|Holas|Numero|45|
+S3|Croquetas|Numero|4|

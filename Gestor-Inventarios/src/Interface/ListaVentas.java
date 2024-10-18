@@ -10,6 +10,9 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -40,8 +43,10 @@ public class ListaVentas extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblProductoslista = new javax.swing.JTable();
         btnNuevaVenta = new javax.swing.JButton();
-        btnEliminar = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        txtCliente = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -55,11 +60,12 @@ public class ListaVentas extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "ID", "Cliente", "Fecha", "Total Venta"
             }
         ));
         jScrollPane1.setViewportView(tblProductoslista);
 
+        btnNuevaVenta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interface/resources/imgs/producto.png"))); // NOI18N
         btnNuevaVenta.setText("NUEVA VENTA");
         btnNuevaVenta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -67,12 +73,20 @@ public class ListaVentas extends javax.swing.JFrame {
             }
         });
 
-        btnEliminar.setText("ELIMINAR VENTA");
-
         btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interface/resources/imgs/exit.png"))); // NOI18N
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalirActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Cliente :");
+
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interface/resources/imgs/firmar.png"))); // NOI18N
+        jButton1.setText("EDITAR");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -84,17 +98,24 @@ public class ListaVentas extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(67, 67, 67)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnSalir))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnSalir))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(27, 27, 27)
+                                .addComponent(txtCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 647, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(54, 54, 54)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 647, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(50, 50, 50)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnEliminar)
-                            .addComponent(btnNuevaVenta))))
-                .addContainerGap(36, Short.MAX_VALUE))
+                        .addGap(751, 751, 751)
+                        .addComponent(btnNuevaVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -106,15 +127,18 @@ public class ListaVentas extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(16, 16, 16)
                         .addComponent(btnSalir)))
-                .addGap(27, 27, 27)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(btnNuevaVenta)
-                        .addGap(31, 31, 31)
-                        .addComponent(btnEliminar)))
-                .addContainerGap(85, Short.MAX_VALUE))
+                        .addComponent(btnNuevaVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -123,15 +147,48 @@ public class ListaVentas extends javax.swing.JFrame {
     private void btnNuevaVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaVentaActionPerformed
         String nuevoIdVenta = generarNuevoIdVenta();
 
-        // Paso 2: Guardar el nuevo ID de venta en el archivo listaVentas.txt
-        agregarVenta(nuevoIdVenta, "Fecha", "Cliente");  // Puedes agregar más datos si es necesario
+        // Paso 2: Guardar el nuevo ID de venta junto con la fecha y hora actuales en el archivo listaVentas.txt
+        if (agregarVenta(nuevoIdVenta)) {  // Cambiamos la llamada a agregarVenta para verificar el resultado
+            // Solo se levanta la vista si agregarVenta fue exitoso
+            this.dispose();
+            Ventas ventas = new Ventas();
+            ventas.setIdVenta(nuevoIdVenta);
 
-        // Paso 3: Levantar la vista de venta
-        this.dispose();
-        Ventas ventas = new Ventas();
-        ventas.setIdVenta(nuevoIdVenta);
-        ventas.setVisible(true);
+            // También se establece el nombre del cliente
+            ventas.setCliente(txtCliente.getText().trim());
+
+            ventas.setVisible(true);
+        }
+
     }//GEN-LAST:event_btnNuevaVentaActionPerformed
+
+    private boolean agregarVenta(String idVenta) {
+        // Obtener el cliente del campo txtCliente
+        String cliente = txtCliente.getText().trim(); // Obtener el cliente y eliminar espacios
+
+        // Verificar si el nombre del cliente está vacío
+        if (cliente.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor, ingresa un nombre de cliente.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            return false; // Retornar falso si el cliente no está ingresado
+        }
+
+        // Obtener la fecha y hora actuales
+        LocalDateTime fechaActual = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        String fechaFormateada = fechaActual.format(formatter);
+
+        // Formato del archivo: id, cliente, fecha, total (vacío por ahora)
+        String registroVenta = idVenta + "|" + cliente + "|" + fechaFormateada + "| |";
+
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter("listaVentas.txt", true))) {
+            bw.write(registroVenta);
+            bw.newLine(); // Nueva línea para separar registros
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return true; // Retornar verdadero si la venta se agregó exitosamente
+    }
 
     private String generarNuevoIdVenta() {
         int maxId = 0;
@@ -159,20 +216,6 @@ public class ListaVentas extends javax.swing.JFrame {
 
         // Incrementar el ID máximo para obtener un nuevo ID y agregar la "V"
         return "V" + (maxId + 1);
-    }
-
-// Método para agregar la venta al archivo listaVentas.txt en el formato "id|Fecha|Cliente|"
-    public static void agregarVenta(String id, String fecha, String cliente) {
-        File archivo = new File("listaVentas.txt");
-
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(archivo, true))) {
-            // Escribir la nueva venta en el archivo
-            bw.write(id + "|" + fecha + "|" + cliente + "|\n");
-            bw.flush();
-            System.out.println("Venta agregada correctamente.");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     private void llenarTablaVentas() {
@@ -220,6 +263,33 @@ private void levantarVistaDeVenta(String nuevoIdVenta) {
         menu.setVisible(true);
     }//GEN-LAST:event_btnSalirActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+        // Obtener la fila seleccionada
+        int filaSeleccionada = tblProductoslista.getSelectedRow(); // Obtener el índice de la fila seleccionada
+
+        // Verificar si se ha seleccionado alguna fila
+        if (filaSeleccionada != -1) {
+            // Obtener el ID de la columna 0 de la fila seleccionada
+            String idVenta = tblProductoslista.getValueAt(filaSeleccionada, 0).toString();
+
+            // Obtener el nombre del cliente de la columna 1
+            String nombreCliente = tblProductoslista.getValueAt(filaSeleccionada, 1).toString();
+
+            // Establecer el ID en el campo txtVenta de la vista Ventas
+            this.dispose();
+            Ventas ventas = new Ventas(); // Asegúrate de tener acceso a la instancia correcta de Ventas
+            ventas.setIdVenta(idVenta);
+            ventas.setCliente(nombreCliente); // Método que debes crear para establecer el cliente
+            ventas.setVisible(true); // Mostrar la vista de ventas si es necesario
+
+            // Si necesitas cerrar la ventana actual, puedes hacerlo aquí
+            // this.dispose(); 
+        } else {
+            JOptionPane.showMessageDialog(this, "Por favor, selecciona una fila para editar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -256,11 +326,13 @@ private void levantarVistaDeVenta(String nuevoIdVenta) {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnNuevaVenta;
     private javax.swing.JButton btnSalir;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblProductoslista;
+    private javax.swing.JTextField txtCliente;
     // End of variables declaration//GEN-END:variables
 }
